@@ -34,7 +34,7 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    private final String[] PUBLIC_ENDPOINTS = { "/auth/login" , "/user/register" };
+    private final String[] PUBLIC_ENDPOINTS = { "/auth/login" , "/user/register", "/swagger-ui/**", "/v3/api-docs/**" };
 
     private final String[] ADMIN_ENDPOINTS = { "/user/admin/register" };
 
