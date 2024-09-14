@@ -44,7 +44,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.CUSTOMER.name())
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated()
                 )

@@ -33,14 +33,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest request) {
 
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsernameOrEmail(), request.getPassword())
-            );
-        } catch (AuthenticationException exception){
-            throw new RuntimeException("Credential invalid");
-        }
-
         User user = (User) userDetailsService.loadUserByUsername(request.getUsernameOrEmail());
 
         return LoginResponse.builder()
