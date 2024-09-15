@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class LoginResponse {
+public class LoginResponse extends UserResponse{
     private String message;
     private String token;
 }

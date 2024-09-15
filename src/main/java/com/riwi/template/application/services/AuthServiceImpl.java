@@ -3,6 +3,7 @@ package com.riwi.template.application.services;
 import com.riwi.template.application.dtos.reponses.LoginResponse;
 import com.riwi.template.application.dtos.requests.LoginRequest;
 import com.riwi.template.domain.entities.User;
+import com.riwi.template.domain.exceptions.InvalidCredentialsException;
 import com.riwi.template.infrastructure.helpers.JwtUtil;
 import com.riwi.template.domain.ports.services.AuthService;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,10 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse login(LoginRequest request) {
 
         User user = (User) userDetailsService.loadUserByUsername(request.getUsernameOrEmail());
+
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())){
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
 
         return LoginResponse.builder()
                 .message(user.getRole() + " successfully authenticated")

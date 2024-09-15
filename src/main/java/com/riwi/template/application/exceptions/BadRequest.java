@@ -21,9 +21,7 @@ public class BadRequest {
 
         List<String> errors = new ArrayList<>();
 
-        if (exception instanceof MethodArgumentNotValidException){
-            var e = (MethodArgumentNotValidException) exception;
-
+        if (exception instanceof MethodArgumentNotValidException e){
             e.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
         } else {
             errors.add(exception.getMessage());

@@ -36,7 +36,7 @@ public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = { "/auth/login" , "/user/register", "/swagger-ui/**", "/v3/api-docs/**" };
 
-    private final String[] ADMIN_ENDPOINTS = { "/user/admin/register" };
+    private final String[] ADMIN_ENDPOINTS = { "/user/admin/register", "/users" };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -44,12 +44,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.CUSTOMER.name())
+                        .requestMatchers(ADMIN_ENDPOINTS).hasAuthority(Role.ADMIN.name())
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(sessionManager ->
-                        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 

@@ -6,6 +6,7 @@ import com.riwi.template.application.dtos.requests.UserRegisterRequest;
 import com.riwi.template.application.mappers.UserMapper;
 import com.riwi.template.domain.entities.User;
 import com.riwi.template.domain.enums.Role;
+import com.riwi.template.domain.exceptions.InvalidCredentialsException;
 import com.riwi.template.domain.ports.services.UserService;
 import com.riwi.template.infrastructure.persistence.UserRepository;
 import com.riwi.template.infrastructure.helpers.JwtUtil;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
         User userDB = userRepository.findByUsernameOrEmail(request.getUsername(),request.getEmail());
 
         if (userDB != null){
-            throw new RuntimeException("Username register");
+            throw new InvalidCredentialsException("Username register");
         }
 
         User user = User.builder()
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
         user = this.userRepository.save(user);
 
-        return UserResponse.builder()
+        return LoginResponse.builder()
                 .message(user.getRole() + " successfully authenticated")
                 .token(this.jwtUtil.generateToken(user))
                 .id(user.getId())
