@@ -4,6 +4,7 @@ import com.riwi.template.domain.entities.User;
 import com.riwi.template.infrastructure.persistence.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public User loadUserByUsername(String identifier) {
+    public UserDetails loadUserByUsername(String identifier) {
 
         User user = userRepository.findByUsernameOrEmail(identifier, identifier);
 

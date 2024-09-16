@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
         version = "1.0",
         description = "Usage template spring security, mapStructure, JWT"),
         servers = {
-                @Server(url = "https://template.up.railway.app/api/v1", description = "Railway Server")
+                @Server(url = "https://template.up.railway.app/api/v1", description = "Railway Server"),
+                @Server(url = "http://localhost:8080/api/v1", description = "Local Server")
         }
 )
 public class OpenApiConfiguration {
